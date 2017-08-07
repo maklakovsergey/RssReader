@@ -101,6 +101,7 @@
 				02EDB0AD1F38815E0024DFCE /* Resources */,
 				A97234D363D63BC61EF52FB2 /* [CP] Embed Pods Frameworks */,
 				814312BC645640AA93C935F6 /* [CP] Copy Pods Resources */,
+				02A44E251F38840800C9BB8E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -160,6 +161,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		02A44E251F38840800C9BB8E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect\nif [ \"${CLANG_STATIC_ANALYZER_MODE}\" == \"deep\" ]; then\n\"${PODS_ROOT}/SwiftLint/swiftlint\" lint --no-cache\nfi";
+		};
 		814312BC645640AA93C935F6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +395,7 @@
 				02EDB0C31F38815E0024DFCE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
