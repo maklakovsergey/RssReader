@@ -115,11 +115,58 @@
                     <connections>
                         <outlet property="newsCollectionView" destination="wBG-pH-iaC" id="ebG-iX-o9H"/>
                         <outlet property="noFeedsView" destination="zAh-jf-4of" id="7ML-2w-lVe"/>
+                        <segue destination="gsn-Xb-X9x" kind="show" identifier="showNewsItem" id="2GH-px-hxu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="611-5C-K7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="596" y="302.6986506746627"/>
+        </scene>
+        <!--Новость-->
+        <scene sceneID="dXn-5J-w0T">
+            <objects>
+                <viewController id="gsn-Xb-X9x" customClass="NewsContentViewController" customModule="RssReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZxV-hz-WLZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="K8Q-d8-Tlg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6mi-jg-aRg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKQ-TY-jIK">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YuV-Jx-5u0">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yKQ-TY-jIK" firstAttribute="top" secondItem="ZxV-hz-WLZ" secondAttribute="bottom" id="2ds-Ph-2JJ"/>
+                            <constraint firstItem="YuV-Jx-5u0" firstAttribute="centerX" secondItem="6mi-jg-aRg" secondAttribute="centerX" id="Ihm-cu-8Jy"/>
+                            <constraint firstItem="K8Q-d8-Tlg" firstAttribute="top" secondItem="yKQ-TY-jIK" secondAttribute="bottom" id="Rcn-7G-VlX"/>
+                            <constraint firstItem="YuV-Jx-5u0" firstAttribute="centerY" secondItem="6mi-jg-aRg" secondAttribute="centerY" id="WJt-ey-0pP"/>
+                            <constraint firstItem="yKQ-TY-jIK" firstAttribute="leading" secondItem="6mi-jg-aRg" secondAttribute="leading" id="lYA-c5-uZv"/>
+                            <constraint firstAttribute="trailing" secondItem="yKQ-TY-jIK" secondAttribute="trailing" id="pzA-Xs-Oml"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Новость" id="3kg-Ti-lVP">
+                        <barButtonItem key="rightBarButtonItem" image="ic_share" id="9dy-h7-VJG">
+                            <connections>
+                                <action selector="share:" destination="gsn-Xb-X9x" id="DaC-Qy-lHL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="spinner" destination="YuV-Jx-5u0" id="Er5-vB-6Dw"/>
+                        <outlet property="webViewContainer" destination="yKQ-TY-jIK" id="ufK-nG-56H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cFP-0G-iJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1436" y="303"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eQN-di-5Oc">
@@ -220,4 +267,7 @@
             <point key="canvasLocation" x="-356" y="-50"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_share" width="24" height="24"/>
+    </resources>
 </document>

@@ -24,6 +24,7 @@ class FeedContentsViewController: UIViewController {
     }
 
     fileprivate var newsItems: [NewsItem] = []
+    fileprivate var selectedNewsItem: NewsItem?
 
     var feedProvider: FeedProvider = Model.shared.feedProvider
     var newsProvider: NewsProvider = Model.shared.newsProvider
@@ -43,6 +44,13 @@ class FeedContentsViewController: UIViewController {
         observe(newsCollectionView, property: "bounds", with: { (_, _, _, _) in
             weakSelf?.calculateCellSize()
         })
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showNewsItem" {
+            let newsContentVC = segue.destination as? NewsContentViewController
+            newsContentVC?.newsItem = selectedNewsItem
+        }
     }
 
     private func refreshFeeds() {
@@ -78,10 +86,6 @@ class FeedContentsViewController: UIViewController {
         itemSize.height = itemSize.width / aspectRatio
         flowLayout.estimatedItemSize = itemSize
     }
-
-    fileprivate func presentNewsItem(newsItem: NewsItem) {
-
-    }
 }
 
 extension FeedContentsViewController: UICollectionViewDataSource {
@@ -100,6 +104,7 @@ extension FeedContentsViewController: UICollectionViewDataSource {
 
 extension FeedContentsViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presentNewsItem(newsItem: newsItems[indexPath.item])
+        selectedNewsItem = newsItems[indexPath.item]
+        performSegue(withIdentifier: "showNewsItem", sender: self)
     }
 }

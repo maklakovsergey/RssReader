@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0204B23B1F3B3C280066D4F9 /* TopAlignedCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0204B23A1F3B3C280066D4F9 /* TopAlignedCollectionViewFlowLayout.swift */; };
+		0204B23D1F3B46D30066D4F9 /* NewsContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0204B23C1F3B46D30066D4F9 /* NewsContentViewController.swift */; };
 		02A44E291F38872900C9BB8E /* FeedsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A44E281F38872900C9BB8E /* FeedsListController.swift */; };
 		02A44E2D1F388A9600C9BB8E /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A44E2C1F388A9600C9BB8E /* Feed.swift */; };
 		02A44E2F1F388B4200C9BB8E /* FeedProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A44E2E1F388B4200C9BB8E /* FeedProvider.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		0204B23A1F3B3C280066D4F9 /* TopAlignedCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopAlignedCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		0204B23C1F3B46D30066D4F9 /* NewsContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsContentViewController.swift; sourceTree = "<group>"; };
 		02A44E281F38872900C9BB8E /* FeedsListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedsListController.swift; sourceTree = "<group>"; };
 		02A44E2C1F388A9600C9BB8E /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		02A44E2E1F388B4200C9BB8E /* FeedProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedProvider.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				02A44E281F38872900C9BB8E /* FeedsListController.swift */,
 				02CD29AF1F39BE89009C4676 /* FeedContentsViewController.swift */,
 				02CD29B61F39F611009C4676 /* FeedContentCell.swift */,
+				0204B23C1F3B46D30066D4F9 /* NewsContentViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				02CD29BD1F3B296A009C4676 /* NSAttributedString + Categories.swift in Sources */,
 				02CD29A81F38B2A1009C4676 /* Model.swift in Sources */,
 				02A44E311F38918600C9BB8E /* CoreDataFeedProvider.swift in Sources */,
+				0204B23D1F3B46D30066D4F9 /* NewsContentViewController.swift in Sources */,
 				02CD29AC1F39A83B009C4676 /* Error.swift in Sources */,
 				02A44E2F1F388B4200C9BB8E /* FeedProvider.swift in Sources */,
 				02EDB0B31F38815E0024DFCE /* AppDelegate.swift in Sources */,
