@@ -1,15 +1,33 @@
 PODS:
   - Alamofire (4.5.0)
+  - Block-KVO (3.0)
+  - PureLayout (3.0.2)
   - SwiftLint (0.20.1)
+  - SWXMLHash (4.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5.0)
+  - Block-KVO (from `https://github.com/Tricertops/Block-KVO.git`)
+  - PureLayout (~> 3.0.2)
   - SwiftLint (~> 0.20.1)
+  - SWXMLHash (~> 4.0.0)
+
+EXTERNAL SOURCES:
+  Block-KVO:
+    :git: https://github.com/Tricertops/Block-KVO.git
+
+CHECKOUT OPTIONS:
+  Block-KVO:
+    :commit: da4f2453270af1861a50a23ff6769e49e1e2ad6b
+    :git: https://github.com/Tricertops/Block-KVO.git
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Block-KVO: 6e489d53756d5cb03128ed420fb1f1085522007f
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   SwiftLint: f60095dc173a3f3ec505bb34f5229c3dfd779a54
+  SWXMLHash: 6bbc0bf72975a18ceda469fb7d6a886a26d81694
 
-PODFILE CHECKSUM: a3303f9a5247f795b93ffcf5846ff01ede944cde
+PODFILE CHECKSUM: cace4893c2a272dffb3cc7d263048887db9670a5
 
 COCOAPODS: 1.2.0
