@@ -17,6 +17,8 @@ class FeedContentsViewController: UIViewController {
     @IBOutlet weak var noFeedsView: UILabel!
     @IBOutlet weak var newsCollectionView: UICollectionView!
 
+    private weak var refreshControl: UIRefreshControl?
+
     var feeds: [Feed]! {
         didSet {
             refreshFeeds()
@@ -25,6 +27,7 @@ class FeedContentsViewController: UIViewController {
 
     fileprivate var newsItems: [NewsItem] = []
     fileprivate var selectedNewsItem: NewsItem?
+    fileprivate var requestsCount = 0
 
     var feedProvider: FeedProvider = Model.shared.feedProvider
     var newsProvider: NewsProvider = Model.shared.newsProvider
@@ -44,6 +47,13 @@ class FeedContentsViewController: UIViewController {
         observe(newsCollectionView, property: "bounds", with: { (_, _, _, _) in
             weakSelf?.calculateCellSize()
         })
+
+        let refreshControl = UIRefreshControl()
+        self.refreshControl = refreshControl
+        refreshControl.addTarget(self,
+                                 action: #selector(FeedContentsViewController.refreshFeeds),
+                                 for: .valueChanged)
+        newsCollectionView.addSubview(refreshControl)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -53,19 +63,26 @@ class FeedContentsViewController: UIViewController {
         }
     }
 
-    private func refreshFeeds() {
+    @objc private func refreshFeeds() {
         guard feeds != nil && view != nil else {
             return
         }
         noFeedsView.isHidden = feeds.count != 0
+        requestsCount += feeds.count
         for feed in feeds {
-            newsProvider.readNews(feed: feed, callback: { (items, _) in
-                if let theItems = items {
-                    self.newsItems.append(contentsOf: theItems)
-                    self.newsItems.sort(by: { $0.date > $1.date })
-                    self.newsCollectionView.reloadData()
-                }
-            })
+            newsProvider.readNews(feed: feed, callback: handleNewsLoaded(items:error:))
+        }
+    }
+
+    private func handleNewsLoaded(items: [NewsItem]?, error: Error?) {
+        requestsCount -= 1
+        if requestsCount == 0 {
+            refreshControl?.endRefreshing()
+        }
+        if let theItems = items {
+            newsItems.append(contentsOf: theItems)
+            newsItems.sort(by: { $0.date > $1.date })
+            newsCollectionView.reloadData()
         }
     }
 
