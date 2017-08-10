@@ -18,6 +18,12 @@ class NewsContentViewController: UIViewController {
 
     private weak var webView: WKWebView?
 
+    fileprivate enum DataSource {
+        case url
+        case content
+    }
+    fileprivate var dataSource: DataSource!
+
     override func viewDidLoad() {
         let webView = WKWebView(frame: webViewContainer.bounds)
         self.webView = webView
@@ -26,10 +32,10 @@ class NewsContentViewController: UIViewController {
         webView.navigationDelegate = self
 
         title = newsItem.title
-        if let url = newsItem?.url {
-            webView.load(URLRequest(url: url))
+        if newsItem?.url != nil {
+            loadData(source: .url)
         } else {
-            webView.loadHTMLString(newsItem.contents, baseURL: nil)
+            loadData(source: .content)
         }
     }
 
@@ -45,6 +51,18 @@ class NewsContentViewController: UIViewController {
                                                           applicationActivities: nil)
         present(activityController, animated: true)
     }
+
+    fileprivate func loadData(source: DataSource) {
+        dataSource = source
+        switch source {
+        case .url:
+            if let url = newsItem?.url {
+                webView?.load(URLRequest(url: url))
+            }
+        case .content:
+            webView?.loadHTMLString(newsItem.contents, baseURL: nil)
+        }
+    }
 }
 
 extension NewsContentViewController: WKNavigationDelegate {
@@ -58,6 +76,9 @@ extension NewsContentViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         spinner.stopAnimating()
+        if dataSource == .url {
+            loadData(source: .content)
+        }
     }
 
 }

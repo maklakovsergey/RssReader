@@ -14,6 +14,7 @@ class NewsItem: DatabaseObject {
     var title: String = ""
     var contents: String = ""
     var date: Date = Date()
+    var feedUrl: URL?
 
     required init() {
     }
@@ -29,6 +30,9 @@ class NewsItem: DatabaseObject {
         title = dbnewsItem.title ?? ""
         contents = dbnewsItem.contents ?? ""
         date = (dbnewsItem.date as Date?) ?? Date()
+        if let urlString = dbnewsItem.feedUrl {
+            feedUrl = URL(string: urlString)
+        }
         if !isValid {
             return nil
         }
@@ -67,6 +71,7 @@ class NewsItem: DatabaseObject {
         dbnewsItem.title = title
         dbnewsItem.contents = contents
         dbnewsItem.date = date as NSDate
+        dbnewsItem.feedUrl = feedUrl?.absoluteString
     }
 
     var isValid: Bool {

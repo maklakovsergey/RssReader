@@ -14,15 +14,32 @@ protocol NewsProvider {
     func readNews(feed: Feed, callback: (([NewsItem]?, Error?) -> Void)?)
 }
 
-class WebNewsProvider: NewsProvider {
+class CachedNewsProvider: NewsProvider {
+    private var storage: Storage
+
+    init(storage: Storage) {
+        self.storage = storage
+    }
+
     func readNews(feed: Feed, callback: (([NewsItem]?, Error?) -> Void)?) {
         Alamofire.request(feed.url).response { (response) in
-            if let error = response.error {
-                DispatchQueue.main.async {
-                    callback?(nil, error)
+            if response.error != nil {
+                self.readFromDatabase(feed: feed) { (items, error) in
+                    self.removeHtmlTags(news: items ?? [])
+                    callback?(items, error)
                 }
             } else {
-                self.parse(data: response.data, callback: callback)
+                self.parse(data: response.data) { (items, error) in
+                    if error == nil {
+                        let theItems = items ?? []
+                        self.saveToDatabase(feed: feed, items: theItems, callback: { (_) in
+                            self.removeHtmlTags(news:theItems)
+                            callback?(theItems, nil)
+                        })
+                    } else {
+                        callback?(nil, error)
+                    }
+                }
             }
         }
     }
@@ -41,12 +58,35 @@ class WebNewsProvider: NewsProvider {
         }
         if news != nil {
             DispatchQueue.main.async {
-                self.removeHtmlTags(news: news!)
                 callback?(news, nil)
             }
         } else {
             DispatchQueue.main.async {
                 callback?(nil, AppError.invalidRssFormat)
+            }
+        }
+    }
+
+    private func readFromDatabase(feed: Feed, callback: (([NewsItem]?, Error?) -> Void)?) {
+        storage.fetch(entityName: "DBNewsItem",
+                      predicate: NSPredicate(format: "feedUrl == %@", feed.url.absoluteString),
+                      callback: callback)
+    }
+
+    private func saveToDatabase(feed: Feed, items: [NewsItem], callback: ((Error?) -> Void)?) {
+        for item in items {
+            item.feedUrl = feed.url
+        }
+        storage.remove(entityName: "DBNewsItem",
+                       predicate: NSPredicate(format: "feedUrl == %@", feed.url.absoluteString)) { (error) in
+            if error == nil {
+                self.storage.insert(objects: items,
+                                    entityName: "DBNewsItem",
+                                    callback: callback)
+            } else {
+                DispatchQueue.main.async {
+                    callback?(error)
+                }
             }
         }
     }

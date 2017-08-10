@@ -18,7 +18,7 @@ class Model {
     }()
 
     lazy var newsProvider: NewsProvider = {
-        return WebNewsProvider()
+        return CachedNewsProvider(storage: self.storage)
     }()
 
     static let shared: Model = Model()

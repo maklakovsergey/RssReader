@@ -19,11 +19,15 @@ class CoreDataStorage: Storage {
 
         let databaseRootUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let databaseUrl = databaseRootUrl.appendingPathComponent("Model.sqlite")
+        let options: [AnyHashable: Any] = [
+            NSMigratePersistentStoresAutomaticallyOption: true,
+            NSInferMappingModelAutomaticallyOption: true
+        ]
         do {
             try coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
                                                configurationName: nil,
                                                at: databaseUrl,
-                                               options: nil)
+                                               options: options)
         } catch {
             print("recreate database")
             do {
@@ -31,7 +35,7 @@ class CoreDataStorage: Storage {
                 try coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
                                                    configurationName: nil,
                                                    at: databaseUrl,
-                                                   options: nil)
+                                                   options: options)
 
             } catch {
                 print(error)
